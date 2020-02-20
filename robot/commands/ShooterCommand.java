@@ -93,6 +93,8 @@ public class ShooterCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("Current Shooter Speed", m_shooter.getSpeed()*MotorConstants.kNeoRPM);
+    SmartDashboard.putNumber("Shooter spin ratio", m_shooter.getSpeed() / m_velocity);
     // Starts PID loop.
     m_shooter.enable();
   }

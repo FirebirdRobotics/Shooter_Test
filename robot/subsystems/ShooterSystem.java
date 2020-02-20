@@ -20,6 +20,8 @@ public class ShooterSystem extends PIDSubsystem {
   private double m_topMotorSpeed, m_bottomMotorSpeed;
 
   public ShooterSystem() {
+    // RULE FOR PID: P = .6*Ku, 	I = 1.2*Ku/Tu, 	D = 3*Ku*Tu/40
+    // Wher Ku is P value for which system start oscillating with a period Tu
     super(new PIDController(ShooterConstants.kP, ShooterConstants.kI, ShooterConstants.kD));
 
     m_topMotor = new CANSparkMax(ShooterConstants.shooterFirstPort, MotorType.kBrushless);
@@ -79,6 +81,11 @@ public class ShooterSystem extends PIDSubsystem {
 
   @Override
   protected double getMeasurement() {
-    return m_topMotor.getEncoder().getVelocity() / MotorConstants.kFalconRPM;
+    return m_topMotor.getEncoder().getVelocity() / MotorConstants.kNeoRPM;
   }
+
+  public double getSpeed() {
+    return m_topMotor.getEncoder().getVelocity() / MotorConstants.kNeoRPM;
+  }
+
 }
